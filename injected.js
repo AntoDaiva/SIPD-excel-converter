@@ -16,7 +16,7 @@
                 };
                 console.log("Intercepted Response:", this.responseText);
                 // Send data to the background script
-                chrome.runtime.sendMessage({ type: "interceptedData", data });
+                window.postMessage({ type: "INTERCEPTED_DATA", data }, "*");
             }
         });
         return oldXHROpen.apply(this, arguments);
