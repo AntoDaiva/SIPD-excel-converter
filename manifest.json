@@ -1,0 +1,29 @@
+{
+    "manifest_version": 3,
+    "name": "Intercept API Responses",
+    "version": "1.0",
+    "description": "Intercept and log XMLHttpRequest responses.",
+    "permissions": ["scripting", "activeTab"],
+    "host_permissions": ["https://sipd-ri.kemendagri.go.id/*", "*://*/*"], 
+    "action": {
+      "default_popup": "popup.html",
+      "default_icon": "icon.png"
+    },
+    "background": {
+      "service_worker": "background.js"
+    },
+    "content_scripts": [
+      {
+        "matches": ["https://sipd-ri.kemendagri.go.id/*"], 
+        "js": ["content.js"],
+        "run_at": "document_start"
+      }
+    ],
+    "web_accessible_resources": [
+      {
+        "resources": ["injected.js"],
+        "matches": ["<all_urls>"]
+      }
+    ]
+  }
+  
