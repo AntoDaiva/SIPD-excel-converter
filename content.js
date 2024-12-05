@@ -1,6 +1,6 @@
 // content.js
 const script = document.createElement("script");
-script.src = chrome.runtime.getURL("injected.js");
+script.src = chrome.runtime.getURL("bundle.js");
 script.onload = function () {
     this.remove(); // Clean up after injection
 };
@@ -14,10 +14,10 @@ window.addEventListener("message", (event) => {
     }
 
     const { data } = event.data;
-    console.log("Content script received data:", data);
+    // console.log("Content script received data:", data);
 
     // Relay the intercepted data to the background script
     chrome.runtime.sendMessage({ type: "interceptedData", data }, (response) => {
-        console.log("Background script response:", response);
+        // console.log("Background script response:", response);
     });
 });

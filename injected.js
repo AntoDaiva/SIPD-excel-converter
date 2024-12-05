@@ -1,3 +1,7 @@
+import { rkaBelanja } from "./rka/rkaBelanjaSkpd";
+// import "./xlsx.js";
+// import "./FileSaver.js";
+// import  "xlsx";
 (function () {
     const oldXHROpen = XMLHttpRequest.prototype.open;
     XMLHttpRequest.prototype.open = function () {
@@ -21,34 +25,33 @@
 
                 let list = JSON.parse(data.response)["data"];
                 console.log(list);
-                let prev = [null, null, null, null, null];
-                let curr = [null, null, null, null, null];
-                for(let i = 0; i < list.length;){
-                    let row = list[i]
-                    curr[0] = row["kode_urusan"];
-                    curr[1] = row["kode_bidang_urusan"].slice(2, 4);
-                    curr[2] = row["kode_program"].slice(5, 7);
-                    curr[3] = row["kode_giat"].slice(8, 12);
-                    curr[4] = row["kode_sub_giat"].slice(13, 17);
-                    
-                    if(curr[0] != prev[0]){
-                        console.log([curr[0], null,    null,    null,    null,    row["nama_urusan"]]);
-                        prev[0] = curr[0];
-                    } else if(curr[1] != prev[1]){
-                        console.log([curr[0], curr[1], null,    null,    null,    row["nama_bidang_urusan"]]);
-                        prev[1] = curr[1];
-                    } else if(curr[2] != prev[2]){
-                        console.log([curr[0], curr[1], curr[2], null,    null,    row["nama_program"]]);
-                        prev[2] = curr[2];
-                    } else if(curr[3] != prev[3]){
-                        console.log([curr[0], curr[1], curr[2], curr[3], null,    row["nama_giat"]]);
-                        prev[3] = curr[3];
-                    } else {
-                        console.log([curr[0], curr[1], curr[2], curr[3], curr[4], row["nama_sub_giat"]]);
-                        prev[4] = curr[4];
-                        i++;
-                    }
-                }
+                let res = rkaBelanja(list);
+                
+                var XLSX = require("xlsx");
+                let wb = XLSX.utils.book_new();
+                wb.Props = {
+                    Title: "Laporan",
+                    Subject: "Testing",
+                    Author: "SIPD RI",
+                };
+                wb.SheetNames.push("Sheet1");
+
+                let ws = XLSX.utils.aoa_to_sheet(res);
+                wb.Sheets["Sheet1"] = ws;
+                
+                XLSX.writeFile(wb, "Test.xlsx");
+
+                // let wbout = XLSX.write(wb, {bookType: "xlsx", type: "binary"});
+                
+                // function s2ab(s){
+                //     var buf = new ArrayBuffer(s.length);
+                //     var view = new Uint8Array(buf);
+                //     for(let i = 0; i < s.length; i++){
+                //         view[i] = s.charCodeAt(i) & 0xFF;
+                //     }
+                //     return buf;
+                // }
+                // saveAs(new Blob([s2ab(wbout)], {type:"application/octet-stream"}), "test.xlsx");
             }
         });
         return oldXHROpen.apply(this, arguments);
