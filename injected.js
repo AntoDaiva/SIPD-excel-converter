@@ -27,7 +27,7 @@ import { rkaBelanja } from "./rka/rkaBelanjaSkpd";
                 console.log(list);
                 let res = rkaBelanja(list);
                 
-                var XLSX = require("xlsx");
+                var XLSX = require("xlsx-style");
                 let wb = XLSX.utils.book_new();
                 wb.Props = {
                     Title: "Laporan",
