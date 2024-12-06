@@ -36,11 +36,12 @@ export function rkaBelanja(list){
         temp.push(null); // Tahun - 1
 
         if(final){
-            temp.push(row["bo"]);
-            temp.push(row["bm"]);
-            temp.push(row["btt"]);
-            temp.push(row["bt"]);
-            temp.push(row["total"]);
+            temp.push(row["bo"] ?? 0);
+            temp.push(row["bm"] ?? 0);
+            temp.push(row["btt"]?? 0);
+            temp.push(row["bt"] ?? 0);
+            temp.push(row["total"] ?? 0);
+            temp.push(row["pagu_n_depan"] ?? 0);
         }
         
         res.push(temp);
