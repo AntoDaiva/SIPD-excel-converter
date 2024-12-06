@@ -39,6 +39,7 @@ import { apply_style, merge_cell, rkaBelanjaHeader } from "./rka/rkaBelanjaHeade
 
                 const ws = XLSX.utils.aoa_to_sheet(worksheetFinal);
                 merge_cell(ws);
+                set_width(ws)
                 apply_style(ws)
                 XLSX.utils.book_append_sheet(wb, ws, "Template");
                 

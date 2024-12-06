@@ -1,3 +1,5 @@
+var XLSX = require("xlsx-js-style");
+
 export function rkaBelanjaHeader() {
     return [
         ["RENCANA KERJA DAN ANGGARAN SATUAN KERJA PERANGKAT DAERAH", null, null, null, null, null, null, null, null, null, null, null, null, "REKAPITULASI RKA-BELANJA SKPD", null, null],
@@ -29,8 +31,29 @@ export function merge_cell(ws){
     ];
 }
 
+export function set_width(ws){
+    ws["!cols"] = [
+        { wch: 9 },  // Column A
+        { wch: 9 },  // Column B
+        { wch: 9 },  // Column C
+        { wch: 9 },  // Column D
+        { wch: 9 },  // Column E
+        { wch: 27 }, // Column F
+        { wch: 19 }, // Column G
+        { wch: 19 }, // Column H
+        { wch: 19 }, // Column I
+        { wch: 19 }, // Column J
+        { wch: 19 }, // Column K
+        { wch: 19 }, // Column L
+        { wch: 19 }, // Column M
+        { wch: 19 }, // Column N
+        { wch: 19 }, // Column O
+      ];
+      
+}
+
 const headerStyle = {
-    alignment: { vertical: "center", horizontal: "center" },
+    alignment: { vertical: "center", horizontal: "center", wrapText: true },
     font: { bold: true },
     border: {
         top:    { style: "thin" },
@@ -40,12 +63,21 @@ const headerStyle = {
     }
 };
 
+
+
 export function apply_style(ws){
-    Object.keys(ws).forEach(key => {
-        if (!key.startsWith("!")) {
-            ws[key].s = headerStyle;
+    const range = XLSX.utils.decode_range(ws['!ref']); // Decode the range from "!ref"
+
+    // Dynamically apply border style to all cells within the detected range
+    for (let row = range.s.r; row <= range.e.r; row++) {
+        for (let col = range.s.c; col <= range.e.c; col++) {
+            const cellAddress = XLSX.utils.encode_cell({ r: row, c: col });
+            if (!ws[cellAddress]) {
+            ws[cellAddress] = { v: "" }; // Create empty cell if it doesn't exist
+            }
+            ws[cellAddress].s = headerStyle; // Apply border style
         }
-    });
+    }
 }
 
 
