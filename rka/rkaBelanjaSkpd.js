@@ -9,7 +9,10 @@ export function rkaBelanja(list){
         curr[2] = row["kode_program"].slice(5, 7);
         curr[3] = row["kode_giat"].slice(8, 12);
         curr[4] = row["kode_sub_giat"].slice(13, 17);
+
         let temp = null;
+        let final = false;
+
         if(curr[0] != prev[0]){
             temp = [curr[0], null,    null,    null,    null,    row["nama_urusan"]];
             prev[0] = curr[0];
@@ -26,16 +29,20 @@ export function rkaBelanja(list){
             temp = [curr[0], curr[1], curr[2], curr[3], curr[4], row["nama_sub_giat"]];
             prev[4] = curr[4];
             i++;
-        }
+            final = true;
+        }   
         temp.push(row["nama_dana"]);
         temp.push(row["lokasi_bl"]);
         temp.push(null); // Tahun - 1
-        temp.push(10000000);
-        temp.push(10000000);
-        temp.push(10000000);
-        temp.push(10000000);
-        temp.push(40000000);
 
+        if(final){
+            temp.push(row["bo"]);
+            temp.push(row["bm"]);
+            temp.push(row["btt"]);
+            temp.push(row["bt"]);
+            temp.push(row["total"]);
+        }
+        
         res.push(temp);
         console.log(temp);
     }
