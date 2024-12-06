@@ -31,7 +31,6 @@ export function rkaBelanja(list){
             i++;
             final = true;
         }   
-        console.log(temp);
         // Sumber dana, lokasi, tahun - 1
         let value = null;
         let detail = null;
@@ -58,7 +57,6 @@ export function rkaBelanja(list){
 
         temp.push(...detail, ...value);
         res.push(temp);
-        
     }
 
     // Add formula for summing tier 5 subcode in tier 4 and tier 4 in tier 3
@@ -89,13 +87,8 @@ export function rkaBelanja(list){
             let formula = "=" + cells.join("+");
             
             res[i][c] = {t: "n", f: formula};   
-            
-            console.log(formula);
-
         }
     }
-
-
     return res;
 }
 
