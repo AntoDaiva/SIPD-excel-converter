@@ -31,21 +31,24 @@ export function rkaBelanja(list){
             i++;
             final = true;
         }   
-        temp.push(row["nama_dana"]);
-        temp.push(row["lokasi_bl"]);
-        temp.push(null); // Tahun - 1
 
-        let line = res.length + 8
+        // Sumber dana, lokasi, tahun - 1
+        temp.push(row["nama_dana"], row["lokasi_bl"], null); 
 
-        if(final){
-            temp.push(row["bo"] ?? 0);
-            temp.push(row["bm"] ?? 0);
-            temp.push(row["btt"]?? 0);
-            temp.push(row["bt"] ?? 0);
-            temp.push({t: "n", f: "=SUM(J"+ line + ":M" + line +")"});
-            temp.push(row["pagu_n_depan"])
-            temp.push({t: "n", f: "=O"+ line + "-N" + line})
-        }
+        let line = res.length + 8 // Posisi baris saat ini + header
+        let value = [
+            row["bo"] ?? 0,
+            row["bm"] ?? 0,
+            row["btt"]?? 0,
+            row["bt"] ?? 0,
+            {t: "n", f: "=SUM(J"+ line + ":M" + line +")"},
+            row["pagu_n_depan"],
+            {t: "n", f: "=O"+ line + "-N" + line}
+        ]
+        if(!final) { value = ["", "", "", "", "", "", ""];}
+
+        temp.push(...value)
+
         
         res.push(temp);
         console.log(temp);
