@@ -18,7 +18,7 @@ import { rkaBelanja } from "./rka/rkaBelanjaSkpd";
                     url: this.responseURL,
                     response: this.responseText
                 };
-                console.log("Intercepted Response:", this.responseText);
+                // console.log("Intercepted Response:", this.responseText);
                 // Send data to the background script
                 window.postMessage({ type: "INTERCEPTED_DATA", data }, "*");
 
