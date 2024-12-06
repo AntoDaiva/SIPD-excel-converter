@@ -35,13 +35,16 @@ export function rkaBelanja(list){
         temp.push(row["lokasi_bl"]);
         temp.push(null); // Tahun - 1
 
+        let line = res.length + 8
+
         if(final){
             temp.push(row["bo"] ?? 0);
             temp.push(row["bm"] ?? 0);
             temp.push(row["btt"]?? 0);
             temp.push(row["bt"] ?? 0);
-            temp.push(row["total"] ?? 0);
-            temp.push(row["pagu_n_depan"] ?? 0);
+            temp.push({t: "n", f: "=SUM(J"+ line + ":M" + line +")"});
+            temp.push(row["pagu_n_depan"])
+            temp.push({t: "n", f: "=O"+ line + "-N" + line})
         }
         
         res.push(temp);
