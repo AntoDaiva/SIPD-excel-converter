@@ -1,6 +1,12 @@
 export function rkaBelanja(list){
-    let prev = [null, null, null, null, null];
-    let curr = [null, null, null, null, null];
+    // let prev = [null, null, null, null, null];
+    // let curr = [null, null, null, null, null];
+    // let res = [];
+
+
+
+    let prev = ["", "", "", "", ""];
+    let curr = ["", "", "", "", ""];
     let res = [];
     for(let i = 0; i < list.length;){
         let row = list[i]
@@ -13,27 +19,20 @@ export function rkaBelanja(list){
         let temp = null;
         let final = false;
 
-        if(curr[0] != prev[0]){
-            temp = [curr[0], "",      "",      "",      "",      row["nama_urusan"]];
-            prev[0] = curr[0];
-        } else if(curr[1] != prev[1]){
-            temp = [curr[0], curr[1], "",      "",      "",      row["nama_bidang_urusan"]];
-            prev[1] = curr[1];
-        } else if(curr[2] != prev[2]){
-            temp = [curr[0], curr[1], curr[2], "",      "",      row["nama_program"]];
-            prev[2] = curr[2];
-        } else if(curr[3] != prev[3]){
-            temp = [curr[0], curr[1], curr[2], curr[3], "",      row["nama_giat"]];
-            prev[3] = curr[3];
-        } else {
-            temp = [curr[0], curr[1], curr[2], curr[3], curr[4], row["nama_sub_giat"]];
-            prev[4] = curr[4];
-            i++;
+        if(curr[0] != prev[0]){         prev = temp = [curr[0], "",      "",      "",      "",      row["nama_urusan"]];
+        } else if(curr[1] != prev[1]){  prev = temp = [curr[0], curr[1], "",      "",      "",      row["nama_bidang_urusan"]];
+        } else if(curr[2] != prev[2]){  prev = temp = [curr[0], curr[1], curr[2], "",      "",      row["nama_program"]];
+        } else if(curr[3] != prev[3]){  prev = temp = [curr[0], curr[1], curr[2], curr[3], "",      row["nama_giat"]];
+        } else if(curr[4] != prev[4]){  prev = temp = [curr[0], curr[1], curr[2], curr[3], curr[4], row["nama_sub_giat"]];
+            i++; // Hanya berlanjut apabila sudah mencapai subcode terdetail
             final = true;
         }   
+
         // Sumber dana, lokasi, tahun - 1
-        let value = null;
-        let detail = null;
+        let value  = ["", "", "", "", "", "", ""];
+        let detail = ["", "", ""];
+        
+        // Hanya diambil jika merupakan subcode paling detail/akhir
         if(final){
             detail = [
                 row["nama_dana"], 
@@ -50,9 +49,6 @@ export function rkaBelanja(list){
                 row["pagu_n_depan"],
                 {t: "n", f: "=O"+ line + "-N" + line}
             ]; 
-        } else {
-            detail = ["", "", ""];
-            value  = ["", "", "", "", "", "", ""];
         }
 
         temp.push(...detail, ...value);
