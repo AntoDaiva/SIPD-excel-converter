@@ -40,10 +40,12 @@ import { apply_style, merge_cell,set_width, rkaBelanjaHeader } from "./rka/rkaBe
                 const ws = XLSX.utils.aoa_to_sheet(worksheetFinal);
                 merge_cell(ws);
                 set_width(ws)
-                apply_style(ws)
+                
                 XLSX.utils.book_append_sheet(wb, ws, "Template");
+                apply_style(ws)
                 
                 XLSX.writeFile(wb, "Test.xlsx");
+                
             }
         });
         return oldXHROpen.apply(this, arguments);
