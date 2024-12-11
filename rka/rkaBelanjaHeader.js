@@ -68,7 +68,7 @@ const headerStyle = {
 export function apply_style(ws){
     const range = XLSX.utils.decode_range(ws['!ref']); // Decode the range from "!ref"
 
-    // Dynamically apply border style to all cells within the detected range
+    // Dynamically apply border style to all cells within the detected range` 
     for (let row = range.s.r; row <= range.e.r; row++) {
         for (let col = range.s.c; col <= range.e.c; col++) {
             const cellAddress = XLSX.utils.encode_cell({ r: row, c: col });
