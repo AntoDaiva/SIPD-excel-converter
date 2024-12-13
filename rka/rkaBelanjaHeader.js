@@ -83,9 +83,9 @@ export function apply_style(ws){
     const rupiahFormat = '"Rp" #,##0';
     const rightAlignment = { alignment: { vertical: "center", horizontal: 'right' } };
     // Define the range
-    const startRow = 8;
-    const startCol = 9; // Column J is the 10th column (0-indexed)
-    const endCol = 14; // Column O is the 15th column (0-indexed)
+    let startRow = 8;
+    let startCol = 9; // Column J is the 10th column (0-indexed)
+    let endCol = 14; // Column O is the 15th column (0-indexed)
 
     // Iterate over the rows and columns
     for (let row = startRow; row <= 100; row++) { // Adjust the maximum row as needed
@@ -96,6 +96,23 @@ export function apply_style(ws){
         if (cell) { // Check if the cell exists and contains a number
             cell.z = rupiahFormat; // Apply the Rupiah format
             cell.s = { ...rightAlignment }; // Apply right alignment
+        }
+        }
+    }
+
+    const centerAlignment = { alignment: { vertical: "center", horizontal: 'center', wrapText: true} };
+    startRow = 8;
+    startCol = 0; // Column J is the 10th column (0-indexed)
+    endCol = 8; // Column O is the 15th column (0-indexed)
+
+    // Iterate over the rows and columns
+    for (let row = startRow; row <= 100; row++) { // Adjust the maximum row as needed
+        for (let col = startCol; col <= endCol; col++) {
+        const cellAddress = XLSX.utils.encode_cell({ r: row - 1, c: col }); // Get the cell reference
+        const cell = ws[cellAddress];
+    
+        if (cell) { // Check if the cell exists
+            cell.s = { ...centerAlignment }; // Apply right alignment
         }
         }
     }
