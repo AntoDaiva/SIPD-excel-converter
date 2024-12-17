@@ -1,10 +1,4 @@
 export function rkaBelanjaData(list){
-    // let prev = [null, null, null, null, null];
-    // let curr = [null, null, null, null, null];
-    // let res = [];
-
-
-
     let prev = ["", "", "", "", ""];
     let curr = ["", "", "", "", ""];
     let res = [];
@@ -45,9 +39,9 @@ export function rkaBelanjaData(list){
                 row["bm"] ?? 0,
                 row["btt"]?? 0,
                 row["bt"] ?? 0,
-                {t: "n", f: "=SUM(J"+ line + ":M" + line +")"},
+                {t: "n", f: "SUM(J"+ line + ":M" + line +")"},
                 row["pagu_n_depan"],
-                {t: "n", f: "=O"+ line + "-N" + line}
+                {t: "n", f: "O"+ line + "-N" + line}
             ]; 
         }
 
@@ -68,7 +62,6 @@ export function rkaBelanjaData(list){
             let curr_tier = 5 - curr.filter(x => x=="").length;
             if(row_tier + 1 != curr_tier) {continue;} // Only search direct subcode
             
-
             // Check if curr is subcode of row
             // By checking if row and curr have common code
             if(JSON.stringify(row.slice(0, row_tier)) == 

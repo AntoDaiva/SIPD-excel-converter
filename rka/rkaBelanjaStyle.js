@@ -68,6 +68,7 @@ function apply_style(ws){
     // Define the custom Rupiah format
     const rupiahFormat = '"Rp" #,##0';
     const rightAlignment = { alignment: { vertical: "center", horizontal: 'right' } };
+    
     // Define the range
     let startRow = 8;
     let startCol = 9; // Column J is the 10th column (0-indexed)
