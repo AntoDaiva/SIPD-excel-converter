@@ -1,4 +1,4 @@
-import { rkaBelanja } from "./rka/rkaBelanjaSkpd";
+import { rkaBelanja } from "./rka/rkaBelanja";
 import { apply_style, merge_cell,set_width, rkaBelanjaHeader } from "./rka/rkaBelanjaHeader";
 // import "./xlsx.js";
 // import "./FileSaver.js";
