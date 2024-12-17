@@ -1,4 +1,4 @@
-export function rkaBelanja(list){
+export function rkaBelanjaData(list){
     // let prev = [null, null, null, null, null];
     // let curr = [null, null, null, null, null];
     // let res = [];

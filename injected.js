@@ -1,6 +1,9 @@
-import { rkaBelanja } from "./rka/rkaBelanja";
-import { rkaSKPD } from "./rka/rkaSKPD";
-import { apply_style, merge_cell,set_width, rkaBelanjaHeader } from "./rka/rkaBelanjaHeader";
+import { rkaBelanjaData   } from "./rka/rkaBelanjaData";
+import { rkaBelanjaHeader } from "./rka/rkaBelanjaHeader";
+import { rkaBelanjaStyle  } from "./rka/rkaBelanjaStyle";
+import { rkaSKPDData   } from "./rka/rkaSKPDData";
+import { rkaSKPDHeader } from "./rka/rkaSKPDHeader";
+import { rkaSKPDStyle  } from "./rka/rkaSKPDStyle";
 
 (function () {
     const oldXHROpen = XMLHttpRequest.prototype.open;
@@ -26,29 +29,33 @@ import { apply_style, merge_cell,set_width, rkaBelanjaHeader } from "./rka/rkaBe
                 console.log(data.url);
                 
 
-                let wsData = null;
+                let wsData   = null;
                 let wsHeader = null;
+                let wsFinal  = null;
+                let ws       = null;
                 let filename = null;
                 // console.log(data.url.split("/").pop());
                 switch(data.url.split("/").pop()){ // Get last url component
-                    case "rkaBelanjaSkpd":
-                        wsData = rkaBelanja(list);
-                        wsHeader = rkaBelanjaHeader();
-                        filename = "Laporan Belanja"
+                    case "rkaBelanjaSkpd": // SKPD
+                        wsData   = rkaSKPDData(list);
+                        wsHeader = rkaSKPDHeader();
+                        wsFinal  = [...wsHeader, ...wsData];
+                        ws       = rkaSKPDStyle(wsFinal);
+                        filename = "Laporan SKPD"
                         console.log("SKPD");
                         break;
                     case "rkaRekapitulasiBelanjaSkpd":
-                        wsData = rkaBelanja(list);
+                        wsData   = rkaBelanjaData(list);
                         wsHeader = rkaBelanjaHeader();
-                        filename = "Laporan SKPD"
+                        wsFinal  = [...wsHeader, ...wsData];
+                        ws       = rkaBelanjaStyle(wsFinal);
+                        filename = "Laporan Belanja"
                         console.log("Belanja");
                         break;
                     default:
                         console.log("Not implemented yet");
                 }
                 
-                let wsFinal = [...wsHeader, ...wsData];
-
                 var XLSX = require("xlsx-js-style");
                 let wb = XLSX.utils.book_new();
                 wb.Props = {
@@ -57,14 +64,8 @@ import { apply_style, merge_cell,set_width, rkaBelanjaHeader } from "./rka/rkaBe
                     Author: "SIPD RI",
                 };
 
-                const ws = XLSX.utils.aoa_to_sheet(wsFinal);
-                merge_cell(ws);
-                set_width(ws);
-                apply_style(ws);
-
                 XLSX.utils.book_append_sheet(wb, ws, "Rekap");
-                XLSX.writeFile(wb, filename + ".xlsx");
-                
+                XLSX.writeFile(wb, filename + ".xlsx");                
             }
         });
         return oldXHROpen.apply(this, arguments);
