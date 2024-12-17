@@ -23,11 +23,7 @@ import { rkaSKPDStyle  } from "./rka/rkaSKPDStyle";
                 };
                 // console.log("Intercepted Response:", this.responseText);
                 // Send data to the background script
-                window.postMessage({ type: "INTERCEPTED_DATA", data }, "*");
-                let list = JSON.parse(data.response)["data"];
-                console.log(list);
-                console.log(data.url);
-                
+                // window.postMessage({ type: "INTERCEPTED_DATA", data }, "*");            
 
                 let wsData   = null;
                 let wsHeader = null;
@@ -37,15 +33,15 @@ import { rkaSKPDStyle  } from "./rka/rkaSKPDStyle";
                 // console.log(data.url.split("/").pop());
                 switch(data.url.split("/").pop()){ // Get last url component
                     case "rkaBelanjaSkpd": // SKPD
-                        wsData   = rkaSKPDData(list);
-                        wsHeader = rkaSKPDHeader();
-                        wsFinal  = [...wsHeader, ...wsData];
-                        ws       = rkaSKPDStyle(wsFinal);
-                        filename = "Laporan SKPD"
+                        wsData   = rkaSKPDData(data);
+                        // wsHeader = rkaSKPDHeader();
+                        // wsFinal  = [...wsHeader, ...wsData];
+                        // ws       = rkaSKPDStyle(wsFinal);
+                        // filename = "Laporan SKPD"
                         console.log("SKPD");
                         break;
                     case "rkaRekapitulasiBelanjaSkpd":
-                        wsData   = rkaBelanjaData(list);
+                        wsData   = rkaBelanjaData(data);
                         wsHeader = rkaBelanjaHeader();
                         wsFinal  = [...wsHeader, ...wsData];
                         ws       = rkaBelanjaStyle(wsFinal);

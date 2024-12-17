@@ -1,4 +1,5 @@
-export function rkaBelanjaData(list){
+export function rkaBelanjaData(data){
+    let list = JSON.parse(data.response)["data"];
     let prev = ["", "", "", "", ""];
     let curr = ["", "", "", "", ""];
     let res = [];
@@ -73,7 +74,7 @@ export function rkaBelanjaData(list){
         for(let c = 9; c < 16; c++ ) { // Change formula in column J to P
             let letter = String.fromCharCode(c + 64 + 1); // Get nth letter of the alphabet JKLMNOP
             let cells = positions.map((x => letter + (x + 1 + 7))); // Posisi baris setelah ini + header pada kolom c
-            let formula = "=" + cells.join("+");
+            let formula = cells.join("+");
             
             res[i][c] = {t: "n", f: formula};   
         }
