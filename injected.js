@@ -34,10 +34,10 @@ import { rkaSKPDStyle  } from "./rka/rkaSKPDStyle";
                 switch(data.url.split("/").pop()){ // Get last url component
                     case "rkaBelanjaSkpd": // SKPD
                         wsData   = rkaSKPDData(data);
-                        // wsHeader = rkaSKPDHeader();
-                        // wsFinal  = [...wsHeader, ...wsData];
-                        // ws       = rkaSKPDStyle(wsFinal);
-                        // filename = "Laporan SKPD"
+                        wsHeader = rkaSKPDHeader();
+                        wsFinal  = [...wsHeader, ...wsData];
+                        ws       = rkaSKPDStyle(wsFinal);
+                        filename = "Laporan SKPD"
                         console.log("SKPD");
                         break;
                     case "rkaRekapitulasiBelanjaSkpd":
