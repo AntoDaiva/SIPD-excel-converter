@@ -1,6 +1,5 @@
 export function rkaSKPDData(data){
     let list = JSON.parse(data.response)["data"]["rincian"];
-    console.log(list);
     let res = [];
     for(let i = 0; i < list.length; i++){
         let row = list[i]
@@ -30,11 +29,10 @@ export function rkaSKPDData(data){
         }
 
         let letter = "E";
-        let cells = positions.map((x => letter + (x + 1))); // Posisi baris setelah ini + header pada kolom c
+        let cells = positions.map((x => letter + (x + 1 + 6))); // Posisi baris setelah ini + header pada kolom c
         let formula = cells.join("+");
         res[i][4] = {t: "n", f: formula};   
     }
-    console.log(res)
 
     return res;
 }

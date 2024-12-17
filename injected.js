@@ -38,7 +38,6 @@ import { rkaSKPDStyle  } from "./rka/rkaSKPDStyle";
                         wsFinal  = [...wsHeader, ...wsData];
                         ws       = rkaSKPDStyle(wsFinal);
                         filename = "Laporan SKPD"
-                        console.log("SKPD");
                         break;
                     case "rkaRekapitulasiBelanjaSkpd":
                         wsData   = rkaBelanjaData(data);
@@ -46,7 +45,6 @@ import { rkaSKPDStyle  } from "./rka/rkaSKPDStyle";
                         wsFinal  = [...wsHeader, ...wsData];
                         ws       = rkaBelanjaStyle(wsFinal);
                         filename = "Laporan Belanja"
-                        console.log("Belanja");
                         break;
                     default:
                         console.log("Not implemented yet");
