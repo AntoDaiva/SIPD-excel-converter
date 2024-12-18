@@ -1,8 +1,8 @@
 {
     "manifest_version": 3,
-    "name": "Intercept API Responses",
+    "name": "SIPD-Extension",
     "version": "1.0",
-    "description": "Intercept and log XMLHttpRequest responses.",
+    "description": "Export dokumen sub kegiatan belanja pada website SIPD ke dalam bentuk excel",
     "permissions": ["scripting", "activeTab"],
     "host_permissions": ["https://sipd-ri.kemendagri.go.id/*", "*://*/*"], 
     "action": {
